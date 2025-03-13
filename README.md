@@ -28,4 +28,4 @@ cd ./filePath
 ```
 npm start
 ```
-Ready.
+Done!
