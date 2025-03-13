@@ -1,4 +1,4 @@
 package com.example.demo.dto;
 
-public record PostCreationDTO() {
+public record PostCreationDTO(String title, String body) {
 }

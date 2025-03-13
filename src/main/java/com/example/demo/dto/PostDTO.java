@@ -1,4 +1,4 @@
 package com.example.demo.dto;
 
-public class PostDTO {
+public record PostDTO(Integer id, String title, String body) {
 }
