@@ -1,4 +1,4 @@
-To implement the required application, the following steps must be completed:
+To implement the required application, the following steps must be completed: (Windows)
 
 (Start server)
 1. Pull the repository using the command
