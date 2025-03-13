@@ -1,6 +1,7 @@
 To implement the required application, the following steps must be completed: (Windows)
 
 (Start server)
+
 1. Pull the repository using the command
 ```
 git clone https://github.com/Rompey/blog.git
@@ -20,6 +21,7 @@ cd ./filePath
 ```
 
 (Launch UI)
+
 5.While in the project folder, go to the folder with UI
 ```
 .cd /demo2-app
