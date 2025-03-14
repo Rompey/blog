@@ -1,0 +1,14 @@
+.button_style {
+    display: flex;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 1em;
+    border-radius: 8px;
+    max-height: 4em !important;
+}
+
+.button_style:hover {
+    background: rgba(40, 44, 52, 0.29);
+}

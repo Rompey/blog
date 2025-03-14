@@ -3,6 +3,8 @@ import {usePut} from "../data/hooks/Put";
 import {usePost} from "../data/hooks/Post";
 import {useDelete} from "../data/hooks/Delete";
 import {useGets} from "../data/hooks/Get";
+import chevron from '../assets/icons/chevron-up.png'
+import styles from '../component/post.module.css'
 
 const BlogPost = () => {
     let postUrl = '/api/v1/posts';
@@ -15,6 +17,7 @@ const BlogPost = () => {
     const [posts, setPosts] = useState([]);
     const [data, setData] = useState({title: '', body: ''});
     const [postId, setPostId] = useState(null);
+    const [showBlogBody, setShowBlogBody] = useState({})
 
     useEffect(() => {
         get(setPosts)
@@ -43,21 +46,50 @@ const BlogPost = () => {
         setPostId(null);
     };
 
+    const showFullText = (id) => {
+        setShowBlogBody((prev) => ({
+            ...prev,
+            [id]: !prev[id]
+        }))
+    }
+
     return (
         <div style={{margin: '1em'}}>
             <h1>Blog Posts</h1>
             <div style={{display: 'flex', flexDirection: 'column', gap: '2em', width: '50vw'}}>
                 <input name='title' placeholder='Title' value={data.title} onChange={handleChange}/>
                 <input name='body' placeholder='Body' value={data.body} onChange={handleChange}/>
-                <button onClick={handleSubmit}>{postId ? 'Update Post' : 'Create Post'}</button>
+                <button className={styles.button_style} style={{border: '1px solid black', width: '20vw'}}
+                        onClick={handleSubmit}>
+                    {postId ? 'Update Post' : 'Create Post'}
+                </button>
             </div>
             <ul>
                 {posts.map((post) => (
-                    <li key={post.id}>
+                    <li key={post.id} style={{width: '50vw'}}>
                         <h2>{post.title}</h2>
-                        <p>{post.body}</p>
-                        <button onClick={() => handleEdit(post)}>Edit</button>
-                        <button onClick={() => handleDelete(post.id)}>Delete</button>
+                        <div style={{display: 'flex', flexDirection: 'row', gap: '1em'}}>
+                            <p style={{
+                                whiteSpace: showBlogBody[post.id] ? 'normal' : 'nowrap',
+                                overflow: showBlogBody[post.id] ? 'visible' : 'hidden',
+                                textOverflow: showBlogBody[post.id] ? 'unset' : 'ellipsis',
+                                maxWidth: '40vw'
+                            }}>
+                                {post.body}
+                            </p>
+                            <button
+                                onClick={() => showFullText(post.id)}
+                                className={styles.button_style}
+                                style={{
+                                    borderRadius: '50%',
+                                    transition: 'transform 0.3s ease',
+                                    transform: showBlogBody[post.id] ? 'rotate(180deg)' : 'rotate(0deg)'
+                                }}>
+                                <img src={chevron} alt={''}/>
+                            </button>
+                        </div>
+                        <button className={styles.button_style} onClick={() => handleEdit(post)}>Edit</button>
+                        <button className={styles.button_style} onClick={() => handleDelete(post.id)}>Delete</button>
                     </li>
                 ))}
             </ul>

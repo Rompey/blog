@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.PostCreationDTO;
+import com.example.demo.dto.PostUpdatingDTO;
 import com.example.demo.dto.PostDTO;
 import com.example.demo.service.PostService;
 import org.springframework.http.ResponseEntity;
@@ -32,12 +32,6 @@ public class BlogPostsController {
         return ResponseEntity.ok(posts);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PostDTO> getPostById(@PathVariable Integer id) {
-        PostDTO post = postService.getPostById(id);
-        return ResponseEntity.ok(post);
-    }
-
     @PostMapping
     public ResponseEntity<PostDTO> createPost(@RequestBody PostDTO postDTO) {
         PostDTO post = postService.createPost(postDTO);
@@ -45,13 +39,13 @@ public class BlogPostsController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updatePostById(@PathVariable("id") Integer id, @RequestBody PostCreationDTO postDTO) {
+    public ResponseEntity<Void> updatePostById(@PathVariable("id") Integer id, @RequestBody PostUpdatingDTO postDTO) {
         postService.updatePostById(id, postDTO);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePostById(@PathVariable Integer id) {
+    public ResponseEntity<Void> deletePostById(@PathVariable("id") Integer id) {
         postService.deletePostById(id);
         return ResponseEntity.noContent().build();
     }

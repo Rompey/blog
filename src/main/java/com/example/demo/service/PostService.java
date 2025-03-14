@@ -1,10 +1,11 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.PostCreationDTO;
+import com.example.demo.dto.PostUpdatingDTO;
 import com.example.demo.dto.PostDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,18 +25,14 @@ public class PostService {
         if (posts == null) {
             return Collections.emptyList();
         }
-        return List.of(posts);
-    }
-
-    public PostDTO getPostById(Integer id) {
-        return restTemplate.getForObject(JSON_PLACEHOLDER_URL + "/" + id, PostDTO.class);
+        return Arrays.stream(posts).toList();
     }
 
     public PostDTO createPost(PostDTO postDTO) {
         return restTemplate.postForObject(JSON_PLACEHOLDER_URL, postDTO, PostDTO.class);
     }
 
-    public void updatePostById(Integer id, PostCreationDTO postDTO) {
+    public void updatePostById(Integer id, PostUpdatingDTO postDTO) {
         restTemplate.put(JSON_PLACEHOLDER_URL + "/" + id, postDTO);
     }
 
