@@ -30,7 +30,7 @@ cd ./filePath
 ```
 npm install
 ```
-6. After that we launch our UI
+7. After that we launch our UI
 ```
 npm start
 ```
