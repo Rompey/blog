@@ -26,6 +26,10 @@ cd ./filePath
 ```
 .cd /demo2-app
 ```
+6. Install dependencies
+```
+npm install
+```
 6. After that we launch our UI
 ```
 npm start
