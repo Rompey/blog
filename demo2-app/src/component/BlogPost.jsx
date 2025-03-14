@@ -18,6 +18,7 @@ const BlogPost = () => {
     const [data, setData] = useState({title: '', body: ''});
     const [postId, setPostId] = useState(null);
     const [showBlogBody, setShowBlogBody] = useState({})
+    const [textError, setTextError] = useState(false)
 
     useEffect(() => {
         get(setPosts)
@@ -29,7 +30,12 @@ const BlogPost = () => {
     };
 
     const handleSubmit = () => {
-        postId ? put(postId, data, setPosts, resetForm) : post(data, posts, setPosts, resetForm)
+        if (data.title.length < 5 || data.body.length < 20) {
+            setTextError(true)
+        } else {
+            setTextError(false)
+            postId ? put(postId, data, setPosts, resetForm) : post(data, posts, setPosts, resetForm)
+        }
     };
 
     const handleEdit = (post) => {
@@ -59,6 +65,7 @@ const BlogPost = () => {
             <div style={{display: 'flex', flexDirection: 'column', gap: '2em', width: '50vw'}}>
                 <input name='title' placeholder='Title' value={data.title} onChange={handleChange}/>
                 <input name='body' placeholder='Body' value={data.body} onChange={handleChange}/>
+                {textError && <span style={{color: 'rgba(255,0,0,0.55)'}}>Add more text</span>}
                 <button className={styles.button_style} style={{border: '1px solid black', width: '20vw'}}
                         onClick={handleSubmit}>
                     {postId ? 'Update Post' : 'Create Post'}
